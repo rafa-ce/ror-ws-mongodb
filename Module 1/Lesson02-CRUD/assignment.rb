@@ -60,11 +60,11 @@ class Solution
   #
 
   def all(prototype={})
-    #place solution here
+    @coll.find(prototype)
   end
 
   def find_by_name(fname, lname)
-    #place solution here
+    @coll.find(first_name: fname, last_name: lname).projection(first_name: 1, last_name: 1, number: 1, _id: 0)
   end
 
   #
