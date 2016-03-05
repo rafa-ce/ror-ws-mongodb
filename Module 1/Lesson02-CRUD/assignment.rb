@@ -72,7 +72,9 @@ class Solution
   #
 
   def find_group_results(group, offset, limit)
-    #place solution here
+    @coll.find(group:group)
+         .projection(group:0, _id:0)
+         .sort(secs:1).skip(offset).limit(limit)
   end
 
   #
