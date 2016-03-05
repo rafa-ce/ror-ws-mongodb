@@ -15,7 +15,7 @@ class Solution
   #Implement a class method in the `Solution` class called `collection` that will
   def self.collection
     #return the `zips` collection
-
+    @@db[:zips]
   end
 
   #Implement an instance method in the `Solution` class called `sample` that will
