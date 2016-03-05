@@ -97,11 +97,11 @@ class Solution
   #
 
   def update_racer(racer)
-    #place solution here
+    @coll.find(_id: racer[:_id]).replace_one(racer)
   end
 
   def add_time(number, secs)
-    #place solution here
+    @coll.find(number: number).update_one(:$inc => {:secs => secs})
   end
 
 end
