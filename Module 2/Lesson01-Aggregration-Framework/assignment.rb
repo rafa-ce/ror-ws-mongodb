@@ -96,7 +96,12 @@ class Solution
   end
 
   def group_last_names
-    #place solution here
+    @coll.find.aggregate([ {
+      :$group=>{
+        :_id=>{:age=>"$group", :gender=>"$gender"},
+        :last_names=>{:$push=>{:last_name=>"$last_name"}}
+      }
+    } ])
   end
 
   def group_last_names_set
