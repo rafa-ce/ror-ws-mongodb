@@ -72,7 +72,13 @@ class Solution
   end
 
   def concat_names
-    #place solution here
+    @coll.find.aggregate([ {
+      :$project=>{
+        :_id=>0,
+        :number=>1,
+        :name=>{ :$concat=>["$last_name", ", ", "$first_name"] }
+      }
+    } ])
   end
 
   #
