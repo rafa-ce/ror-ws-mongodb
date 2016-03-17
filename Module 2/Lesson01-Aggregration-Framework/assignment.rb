@@ -64,7 +64,11 @@ class Solution
   end
 
   def id_number_map
-    #place solution here
+    @coll.find.aggregate([ {
+      :$project=>{
+        :number=>1
+      }
+    } ])
   end
 
   def concat_names
