@@ -15,7 +15,7 @@ class Solution
   # using the default.
   def self.mongo_client
     url=ENV['MONGO_URL'] ||= MONGO_URL
-    database=ENV['MONGO_DATABASE'] ||= MONGO_DATABASE 
+    database=ENV['MONGO_DATABASE'] ||= MONGO_DATABASE
     db = Mongo::Client.new(url)
     @@db=db.use(database)
   end
@@ -26,9 +26,9 @@ class Solution
     collection=ENV['RACE_COLLECTION'] ||= RACE_COLLECTION
     return mongo_client[collection]
   end
-  
+
   # helper method that will load a file and return a parsed JSON document as a hash
-  def self.load_hash(file_path) 
+  def self.load_hash(file_path)
     file=File.read(file_path)
     JSON.parse(file)
   end
@@ -39,7 +39,7 @@ class Solution
   end
 
   # drop the current contents of the collection and reload from data file
-  def self.reset(file_path) 
+  def self.reset(file_path)
     self.collection.delete_many({})
     hash=self.load_hash(file_path)
     self.collection.insert_many(hash)
@@ -56,10 +56,14 @@ class Solution
   #
 
   def racer_names
-    #place solution here
+    @coll.find.aggregate([ {
+      :$project=>{
+        :_id=>0, :first_name=>1, :last_name=>1
+      }
+    } ])
   end
 
-  def id_number_map 
+  def id_number_map
     #place solution here
   end
 
@@ -102,14 +106,14 @@ class Solution
   def avg_family_time last_name
     #place solution here
   end
-  
+
   def number_goal last_name
     #place solution here
   end
 
 end
 
-file_path= "../student-start/race_results.json"
+file_path= "race_results.json"
 puts "cannot find bootstrap at #{file_path}" if !File.exists?(file_path)
 Solution.reset(file_path)
 s=Solution.new
