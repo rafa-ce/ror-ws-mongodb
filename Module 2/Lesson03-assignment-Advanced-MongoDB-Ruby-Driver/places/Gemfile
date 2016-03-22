@@ -45,3 +45,5 @@ group :development do
   gem 'spring'
 end
 
+gem 'mongo', '~> 2.1.0'
+gem 'mongoid', '~> 5.0.0'
