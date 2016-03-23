@@ -42,4 +42,9 @@ class Place
 
     places_return
   end
+
+  def self.find string_id
+    id = BSON::ObjectId.from_string(string_id)
+    self.to_places(collection.find(:_id => id)).first
+  end
 end
