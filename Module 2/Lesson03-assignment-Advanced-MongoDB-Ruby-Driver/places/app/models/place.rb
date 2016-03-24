@@ -47,4 +47,16 @@ class Place
     id = BSON::ObjectId.from_string(string_id)
     self.to_places(collection.find(:_id => id)).first
   end
+
+  def self.all offset = 0, limit = nil
+    unless limit.nil?
+      places = self.collection.find.skip(offset).limit(limit)
+    else
+      places = self.collection.find.skip(offset)
+    end
+
+    places.map { |doc|
+      Place.new(doc)
+    }
+  end
 end
