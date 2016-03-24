@@ -35,12 +35,9 @@ class Place
   end
 
   def self.to_places places
-    places_return = []
-    places.each { |p|
-      places_return << Place.new(p)
+    places.map { |doc|
+      Place.new(doc)
     }
-
-    places_return
   end
 
   def self.find string_id
