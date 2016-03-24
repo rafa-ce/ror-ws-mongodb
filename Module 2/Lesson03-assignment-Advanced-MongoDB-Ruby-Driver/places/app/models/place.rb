@@ -59,4 +59,9 @@ class Place
       Place.new(doc)
     }
   end
+
+  def destroy
+    id = BSON::ObjectId.from_string(@id)
+    self.collection.delete_one(:_id=>id)
+  end
 end
