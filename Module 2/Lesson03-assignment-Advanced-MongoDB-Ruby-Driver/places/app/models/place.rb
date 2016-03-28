@@ -95,4 +95,13 @@ class Place
 
     places.to_a.map {|place| place[:_id]}
   end
+
+  def self.find_ids_by_country_code country_code
+    places = self.collection.aggregate([
+      {:$match => {"address_components.short_name" => country_code}},
+      {:$project => {:_id=>1}}
+    ])
+
+    places.map {|place| place[:_id].to_s}
+  end
 end
