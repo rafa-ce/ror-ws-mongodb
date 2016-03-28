@@ -61,4 +61,27 @@ class Place
     id = BSON::ObjectId.from_string(@id)
     self.collection.delete_one(:_id=>id)
   end
+
+  def self.get_address_components sort=nil, offset=0, limit=nil
+    if sort.nil?
+      sort = {:_id=>1 }
+    end
+
+    unless limit.nil?
+      self.collection.aggregate([
+        {:$project=>{:formatted_address=>1 , :address_components=>1, "geometry.geolocation":1}},
+        {:$unwind=>"$address_components"},
+        {:$sort=>sort},
+        {:$skip =>offset},
+        {:$limit => limit }
+      ])
+    else
+      self.collection.aggregate([
+        {:$project=>{:formatted_address=>1 , :address_components=>1, "geometry.geolocation":1}},
+        {:$unwind=>"$address_components"},
+        {:$sort=>sort},
+        {:$skip =>offset}
+      ])
+    end
+  end
 end
