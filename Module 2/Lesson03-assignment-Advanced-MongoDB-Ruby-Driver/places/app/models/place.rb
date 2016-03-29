@@ -104,4 +104,12 @@ class Place
 
     places.map {|place| place[:_id].to_s}
   end
+
+  def self.create_indexes
+    self.collection.indexes.create_one( {"geometry.geolocation":Mongo::Index::GEO2DSPHERE} )
+  end
+
+  def self.remove_indexes
+    self.collection.indexes.drop_one("geometry.geolocation_2dsphere")
+  end
 end
