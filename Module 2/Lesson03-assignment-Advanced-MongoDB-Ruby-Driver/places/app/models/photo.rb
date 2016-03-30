@@ -12,4 +12,7 @@ class Photo
     Mongoid::Clients.default
   end
 
+  def persisted?
+    !@id.nil?
+  end
 end
