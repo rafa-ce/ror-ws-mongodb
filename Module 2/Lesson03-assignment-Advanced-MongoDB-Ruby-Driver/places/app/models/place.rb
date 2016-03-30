@@ -128,4 +128,6 @@ class Place
   def near maximum_distance = nil
     self.class.to_places(self.class.near(@location, maximum_distance))
   end
+
+  
 end
